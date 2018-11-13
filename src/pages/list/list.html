@@ -7,8 +7,21 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
+<ion-content class="card-background-page">
+    <ion-card>
+        <img src="assets/imgs/test.png"/>
+        <ion-card-content>
+          <ion-card-title>
+            Nine Inch Nails Live
+            </ion-card-title>
+          <p>
+            The most popular industrial group ever, and largely
+            responsible for bringing the music to a mass audience.
+          </p>
+        </ion-card-content>
+      </ion-card>
+
+  <!--<ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
       <ion-icon [name]="item.icon" item-start></ion-icon>
       {{item.title}}
@@ -19,7 +32,7 @@
   </ion-list>
   <div *ngIf="selectedItem" padding>
     You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
+  </div>-->
   <ion-fab right bottom>
     <button ion-fab (click)="goToAdd()"><ion-icon name="add"></ion-icon></button>
   </ion-fab>

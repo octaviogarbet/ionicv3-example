@@ -35,4 +35,8 @@ export class ListPage {
       item: item
     });
   }
+
+  goToAdd() {
+    this.navCtrl.push('CreateItemPage');
+  }
 }

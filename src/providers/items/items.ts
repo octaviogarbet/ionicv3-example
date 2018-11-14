@@ -1,29 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import { Profile } from '../../interfaces/profile.interface';
 
 /*
   Generated class for the ItemsProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
 */
 @Injectable()
 export class ItemsProvider {
 
-  items: any[];
+  items: Profile[];
   itemsChanged: Subject<void>;
 
   constructor() {
-    this.items = new Array<any>()
+    this.items = new Array<Profile>()
     this.itemsChanged = new Subject();
   }
 
-  addItem(item) {
+  addItem(item: Profile) {
     this.items.push(item);
     this.itemsChanged.next();
   }
 
-  getItems() {
+  getItems(): Profile[] {
     return this.items;
   }
 }

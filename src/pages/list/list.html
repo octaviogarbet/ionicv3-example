@@ -8,34 +8,9 @@
 </ion-header>
 
 <ion-content class="card-background-page">
-    <ion-card>
-        <img src="assets/imgs/test.png" />
-        <ion-card-content>
-            <ion-card-title>
-                Nine Inch Nails Live
-            </ion-card-title>
-            <p>
-                The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.
-            </p>
-        </ion-card-content>
-        <ion-item>
-            <button ion-button clear item-start>Like</button>
-            <button ion-button clear item-end (click)="shareIt()">Share</button>
-        </ion-item>
-    </ion-card>
 
-    <!--<ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-start></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-end>
-        {{item.note}}
-      </div>
-    </button>
-  </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>-->
+    <app-list-item *ngFor="let item of items" [profile]="item"></app-list-item>
+
     <ion-fab right bottom>
         <button ion-fab (click)="goToAdd()"><ion-icon name="add"></ion-icon></button>
     </ion-fab>

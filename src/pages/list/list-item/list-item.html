@@ -1,0 +1,15 @@
+<ion-card>
+    <img src="{{profile.image}}" />
+    <ion-card-content>
+        <ion-card-title>
+            {{profile.title}}
+        </ion-card-title>
+        <p>
+            {{profile.description}}
+        </p>
+    </ion-card-content>
+    <ion-item>
+        <button ion-button clear item-start>Like</button>
+        <button ion-button clear item-end (click)="shareIt()">Share</button>
+    </ion-item>
+</ion-card>

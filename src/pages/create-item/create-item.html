@@ -7,12 +7,48 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>CreateItem</ion-title>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Create Item</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <div class="profile-image-wrapper" (click)="openMenu()">
+    <div class="profile-image-placeholder">
+      <ion-icon name="camera"></ion-icon>
+    </div>
+    <img *ngIf="item?.image" src="{{item.image}}"/>
+  </div>
 
+  <form (ngSubmit)="createItem()" [formGroup]="itemForm" class="margin-x2-tb">
+    <ion-item>
+      <ion-label>Title</ion-label>
+      <ion-input type="text" (ionBlur)="titleEdited = true;" (ionFocus)="titleEdited = false;" name="title" formControlName="title" id="title"></ion-input>
+    </ion-item>
+    <div [ngClass]="{showinvalid: titleEdited && !itemForm.controls.title.valid, hideinvalid: !titleEdited || itemForm.controls.title.valid}" class="invalid">
+      <p *ngIf="itemForm.controls.title.hasError('required')">Title is required.</p>
+      <p *ngIf="itemForm.controls.title.hasError('minlength')">Description has to have at least 3 characters.</p>
+      <p *ngIf="itemForm.controls.title.hasError('maxlength')">Description can't have more than 20 characters.</p>
+    </div>
+
+    <ion-item>
+      <ion-label>Description</ion-label>
+      <ion-input type="text" (ionBlur)="descriptionEdited = true;" (ionFocus)="descriptionEdited = false;" name="description" formControlName="description" id="description"></ion-input>
+    </ion-item>
+    <div [ngClass]="{showinvalid: descriptionEdited && !itemForm.controls.description.valid, hideinvalid: !descriptionEdited || itemForm.controls.description.valid}" class="invalid">
+      <p *ngIf="itemForm.controls.description.hasError('required')">Description is required</p>
+      <p *ngIf="itemForm.controls.description.hasError('minlength')">Description has to have at least 10 characters.</p>
+      <p *ngIf="itemForm.controls.description.hasError('maxlength')">Description can't have more than 100 characters.</p>
+    </div>
+
+    <div padding>
+      <button ion-button round type="submit">
+        Create
+      </button>        
+    </div>
+  </form>
 </ion-content>

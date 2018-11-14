@@ -1,3 +1,68 @@
 page-create-item {
+  .profile-image-wrapper {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+    min-height: 175px;
+    
+    .profile-image {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
 
+      display: inline-block;
+
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .profile-image-placeholder {
+      display: inline-block;
+
+      background-color: rgba(0,0,0,0.35);
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      position: absolute;
+      z-index: 1000;
+      left: 38%;
+      top: 40%;
+      font-size: 12px;
+
+      ion-icon {
+        font-size: 44px;
+        margin-top: 22px;
+      }
+    }
+  }
+
+  div.invalid{
+    min-height:21px;
+  }
+  
+  .invalid{
+    p {
+      color: #f53d3d;
+      padding: 5px 8px 0 16px;
+      margin: 0;
+    }
+  }
+  
+  .invalidinput{
+    .item-inner {
+      border-bottom-color: #f53d3d;
+        box-shadow: inset 0 -1px 0 0 #f53d3d;
+    }
+  }
+  
+  .showinvalid{
+    opacity: 1;
+    transition: .5s all ease-in-out;
+  }
+  
+  .hideinvalid{
+    opacity: 0;
+    transition: .5s all ease-in-out;
+  }
 }

@@ -1,5 +1,7 @@
 {
   "name": "DevWeek",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }

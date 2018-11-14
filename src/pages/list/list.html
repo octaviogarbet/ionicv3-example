@@ -1,27 +1,30 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
+    <ion-navbar>
+        <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>List</ion-title>
-  </ion-navbar>
+        <ion-title>List</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content class="card-background-page">
     <ion-card>
-        <img src="assets/imgs/test.png"/>
+        <img src="assets/imgs/test.png" />
         <ion-card-content>
-          <ion-card-title>
-            Nine Inch Nails Live
+            <ion-card-title>
+                Nine Inch Nails Live
             </ion-card-title>
-          <p>
-            The most popular industrial group ever, and largely
-            responsible for bringing the music to a mass audience.
-          </p>
+            <p>
+                The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.
+            </p>
         </ion-card-content>
-      </ion-card>
+        <ion-item>
+            <button ion-button clear item-start>Like</button>
+            <button ion-button clear item-end (click)="shareIt()">Share</button>
+        </ion-item>
+    </ion-card>
 
-  <!--<ion-list>
+    <!--<ion-list>
     <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
       <ion-icon [name]="item.icon" item-start></ion-icon>
       {{item.title}}
@@ -33,7 +36,7 @@
   <div *ngIf="selectedItem" padding>
     You navigated here from <b>{{selectedItem.title}}</b>
   </div>-->
-  <ion-fab right bottom>
-    <button ion-fab (click)="goToAdd()"><ion-icon name="add"></ion-icon></button>
-  </ion-fab>
+    <ion-fab right bottom>
+        <button ion-fab (click)="goToAdd()"><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
 </ion-content>

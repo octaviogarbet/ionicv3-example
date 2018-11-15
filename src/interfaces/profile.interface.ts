@@ -1,7 +1,6 @@
 export interface Profile {
-    id: string,
-    title: string,
-    description: string,
-    image: string
-
+  id: string,
+  title: string,
+  description: string,
+  image: string
 }

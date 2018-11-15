@@ -9,7 +9,6 @@ import { Profile } from '../../interfaces/profile.interface';
   templateUrl: 'list.html'
 })
 export class ListPage {
-  icons: string[];
   items: Array<string>;
 
   constructor(
@@ -18,13 +17,6 @@ export class ListPage {
     private itemsProvider: ItemsProvider) {
 
     this.itemsProvider.getKeys().then(values => this.items = values);
-  }
-
-  itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ListPage, {
-      item: item
-    });
   }
 
   goToAdd() {

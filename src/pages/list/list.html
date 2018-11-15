@@ -9,7 +9,7 @@
 
 <ion-content class="card-background-page">
 
-    <app-list-item *ngFor="let item of items" [profileIdentifier]="item"></app-list-item>
+    <list-item *ngFor="let item of items" [profile]="item"></list-item>
 
     <ion-fab right bottom>
         <button ion-fab (click)="goToAdd()"><ion-icon name="add"></ion-icon></button>

@@ -10,8 +10,8 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class ItemsProvider {
 
-  items: Profile[];
-  itemsChanged: Subject<void>;
+  private items: Profile[];
+  itemsChanged: Subject<Profile[]>;
 
   constructor(private storage: Storage) {
     this.items = new Array<Profile>()
@@ -20,12 +20,13 @@ export class ItemsProvider {
 
   addItem(item: Profile) {
     item.id = this.getIdentifier();
-    //this.items.push(item);
-    //this.itemsChanged.next();
-    this.storage.set(item.id, JSON.stringify(item));
+    this.items.push(item);
+    this.itemsChanged.next(this.items);
+    //this.storage.set(item.id, JSON.stringify(item));
+    this.storage.set('list', JSON.stringify(this.items));
   }
 
-  getKeys(): Promise<Array<string>> {
+  getKeys(): Promise<string[]> {
     return this.storage.keys();
   }
 
@@ -33,6 +34,24 @@ export class ItemsProvider {
     return this.storage.get(key);
   }
 
+  getItemsFromStorage(): Promise<Profile[]> {
+    return this.storage.get('list').then(values => {
+      if (values) {
+        this.items = <Profile[]>JSON.parse(values)
+      }
+      return this.items;
+    });
+  }
+
+  getItems(): Profile[] {
+    return this.items;
+  }
+
+  remove(key: string) {
+    this.items = this.items.filter(x => x.id !== key);
+    this.storage.set('list', JSON.stringify(this.items.filter(x => x.id !== key)));
+    this.itemsChanged.next(this.items);
+  }
 
   private getIdentifier() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

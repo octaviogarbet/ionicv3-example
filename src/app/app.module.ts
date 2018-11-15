@@ -10,6 +10,8 @@ import { ItemsProvider } from '../providers/items/items';
 import { Camera } from '@ionic-native/camera';
 import { SocialSharing} from '@ionic-native/social-sharing';
 
+import { IonicStorageModule } from '@ionic/storage';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -17,6 +19,10 @@ import { SocialSharing} from '@ionic-native/social-sharing';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot({
+      name: '__mydb',
+         driverOrder: ['indexeddb', 'sqlite', 'websql']
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

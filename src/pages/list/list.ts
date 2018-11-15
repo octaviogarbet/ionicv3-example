@@ -10,14 +10,14 @@ import { Profile } from '../../interfaces/profile.interface';
 })
 export class ListPage {
   icons: string[];
-  items: Array<Profile>;
+  items: Array<string>;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private itemsProvider: ItemsProvider) {
 
-    this.items = this.itemsProvider.getItems();
+    this.itemsProvider.getKeys().then(values => this.items = values);
   }
 
   itemTapped(event, item) {

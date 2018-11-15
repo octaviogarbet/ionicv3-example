@@ -1,16 +1,26 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Profile } from '../../../interfaces/profile.interface';
+import { ItemsProvider } from '../../../providers/items/items';
 
 @Component({
     templateUrl: 'list-item.html',
     selector: 'app-list-item'
 })
-export class ListItemComponent {
+export class ListItemComponent implements OnChanges {
 
-    @Input() profile: Profile;
 
-    constructor(private socialSharing: SocialSharing) { }
+    @Input() profileIdentifier: string;
+    profile: Profile;
+
+    constructor(private socialSharing: SocialSharing, private itemsProvider: ItemsProvider) { }
+
+    ngOnChanges(changes: SimpleChanges): void {
+
+        if (changes.profileIdentifier && changes.profileIdentifier.currentValue) {
+            this.itemsProvider.getItem(changes.profileIdentifier.currentValue).then(value => this.profile = value);
+        }
+    }
 
     shareIt() {
         const param = {
@@ -37,4 +47,8 @@ export class ListItemComponent {
     onError = (msg) => {
         console.log("Sharing failed with message: " + msg);
     };
+
+    removeIt() {
+        // pending
+    }
 }

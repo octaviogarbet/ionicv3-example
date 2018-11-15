@@ -50,7 +50,7 @@ export class CreateItemPage {
         sourceType:cameraSource ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.PHOTOLIBRARY,
         //destinationType: cameraSource ? this.camera.DestinationType.DATA_URL: this.camera.DestinationType.FILE_URI,
         destinationType: this.camera.DestinationType.DATA_URL,
-        quality: 50,
+        quality: 100,
         allowEdit: true,
         targetWidth: 250,
         targetHeight: 250,

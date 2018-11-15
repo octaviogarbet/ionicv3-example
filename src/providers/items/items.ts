@@ -45,6 +45,11 @@ export class ItemsProvider {
     return this.items;
   }
 
+  remove(key: string) {
+    this.items = this.items.filter(x => x.id !== key);
+    this.storage.set('list', JSON.stringify(this.items.filter(x => x.id !== key)));
+    this.itemsChanged.next(this.items);
+  }
 
   private getIdentifier() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

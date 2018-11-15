@@ -59,6 +59,6 @@ export class ListItemComponent { // implements OnChanges, OnInit
     };
 
     removeIt() {
-        // pending
+        this.itemsProvider.remove(this.profile.id);
     }
 }

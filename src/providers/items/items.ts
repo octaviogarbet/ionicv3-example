@@ -10,8 +10,8 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class ItemsProvider {
 
-  items: Profile[];
-  itemsChanged: Subject<void>;
+  private items: Profile[];
+  itemsChanged: Subject<Array<Profile>>;
 
   constructor(private storage: Storage) {
     this.items = new Array<Profile>()
@@ -20,9 +20,10 @@ export class ItemsProvider {
 
   addItem(item: Profile) {
     item.id = this.getIdentifier();
-    //this.items.push(item);
-    //this.itemsChanged.next();
-    this.storage.set(item.id, JSON.stringify(item));
+    this.items.push(item);
+    this.itemsChanged.next(this.items);
+    //this.storage.set(item.id, JSON.stringify(item));
+    this.storage.set('list', JSON.stringify(this.items));
   }
 
   getKeys(): Promise<Array<string>> {
@@ -31,6 +32,17 @@ export class ItemsProvider {
 
   getItem(key: string): Promise<Profile> {
     return this.storage.get(key);
+  }
+
+  getItemsFromStorage(): Promise<Array<Profile>> {
+    return this.storage.get('list').then(values => {
+      this.items = <Array<Profile>>JSON.parse(values)
+      return this.items;
+    });
+  }
+
+  getItems(): Array<Profile> {
+    return this.items;
   }
 
 

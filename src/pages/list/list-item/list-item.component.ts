@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Profile } from '../../../interfaces/profile.interface';
 import { ItemsProvider } from '../../../providers/items/items';
@@ -7,20 +7,30 @@ import { ItemsProvider } from '../../../providers/items/items';
     templateUrl: 'list-item.html',
     selector: 'app-list-item'
 })
-export class ListItemComponent implements OnChanges {
+export class ListItemComponent { // implements OnChanges, OnInit
 
 
-    @Input() profileIdentifier: string;
-    profile: Profile;
+    // @Input() profileIdentifier: string;
+    @Input() profile: Profile;
 
-    constructor(private socialSharing: SocialSharing, private itemsProvider: ItemsProvider) { }
+    constructor(private socialSharing: SocialSharing, private itemsProvider: ItemsProvider) {       
+    }
+
+    /*ngOnInit() {
+        this.itemsProvider.getItem(this.profileIdentifier).then(value => this.profile = value);
+        console.log(this.profileIdentifier);
+    }
 
     ngOnChanges(changes: SimpleChanges): void {
 
+        console.log(changes);
         if (changes.profileIdentifier && changes.profileIdentifier.currentValue) {
-            this.itemsProvider.getItem(changes.profileIdentifier.currentValue).then(value => this.profile = value);
+            this.itemsProvider.getItem(changes.profileIdentifier.currentValue).then(value => {
+                this.profile = value
+                console.log(JSON.stringify(this.profile));
+            });
         }
-    }
+    }*/
 
     shareIt() {
         const param = {

@@ -17,6 +17,7 @@ Ionic example for dev week
   + [Camera]
 * [Storage]
 * [Theming]
+* [Authors]
 
 ## Overview
 ionicv3-example is an Ionic 3 app created to use as a Demo for the Dev to Mobile developer talk at DevWeek. Here we will see several steps done to build this app.
@@ -53,7 +54,7 @@ Now to create a new page we will run the cli command:
 ```bash
 $ ionic g page CreateItem
 ```
-That will create under pages folder a new folder create-item and four files in it create-item.html, create-item.ts, create-item.scss and create-item.module.ts
+That will create under pages folder a new folder `create-item` and four files in it `create-item.html`, `create-item.ts`, `create-item.scss` and `create-item.module.ts`
 
 ### Component to page
 Now that we have a generated page as example, we will:
@@ -61,7 +62,7 @@ Now that we have a generated page as example, we will:
  - Create the missing *.module.ts files for our pages.
  - Remove the imports from app.module.ts
  - Change the navigation calls in order to use lazy loading, that is removing the import of the components and just changing the ComponentName of the params of the navigation and leave it just as a string.
- As an example list.ts will have:
+ As an example `list.ts` will have:
 ```typescript
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
@@ -75,7 +76,7 @@ export class ListPage {
     ...
 }
 ```
-And list.module.ts will be:
+And `list.module.ts` will be:
 ```typescript
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
@@ -91,7 +92,7 @@ import { ListPage } from './list';
 })
 export class ListPageModule {}
 ```
-Then, app.module.ts:
+Then, `app.module.ts`:
 ```typescript
 @NgModule({
   declarations: [
@@ -112,7 +113,7 @@ Then, app.module.ts:
 })
 export class AppModule {}
 ```
-And finally app.component.ts
+And finally `app.component.ts`
 
 ```typescript
 ...
@@ -160,7 +161,7 @@ import { IonicModule } from 'ionic-angular';
 })
 export class ComponentsModule {}
 ```
-Finally we will import the generated ComponentsModule in the ListModule, so we can use the component that we have just created in our list page.
+Finally we will import the generated `ComponentsModule` in the `ListModule`, so we can use the component that we have just created in our list page.
 
 ```typescript
 import { NgModule } from '@angular/core';
@@ -197,3 +198,25 @@ export class ListPageModule {}
 ## Storage
 
 ## Theming
+
+## Authors
+* [Octavio Garbarino](https://github.com/octaviog) ([@octaviogarbet](https://twitter.com/octaviogarbet))
+* [Fernando Olmos](https://github.com/ferolmos) ([@OLMOSnet](https://twitter.com/OLMOSnet))
+
+<!--- In file -->
+[Overview]: #overview
+[Setup]: #setup
+[Pages]: #pages
+[New page]: #new-page
+[Component to page]: #component-to-page
+[Adding new components]: #adding-new-components
+[Adding UI Components]: #adding-ui-components
+[FABs]: #fabs
+[Cards]: #cards
+[Navigation]: #navigation
+[Ionic Native Integration]: #ionic-native-integration
+[Social Share]: #social-share
+[Camera]: #camera
+[Storage]: #storage
+[Theming]: #theming
+[Authors]: #authors

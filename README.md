@@ -22,7 +22,7 @@ Ionic example for dev week
 ## Overview
 ionicv3-example is an Ionic 3 app created to use as a Demo for the Dev to Mobile developer talk at DevWeek. Here we will see several steps done to build this app.
 We will develop a simple app that will have:
- - A form page to create simple items, with a title, a description and a picture (from our galery or camera)
+ - A form page to create simple items, with a title, a description and a picture (from our gallery or camera)
  - A list page which will display the created items as cards and we will add the capability to share this pictures.
  - And will storage the created items in order to have them every time we open the app.
 
@@ -117,6 +117,7 @@ Then, `app.module.ts`:
   ],
   providers: [
     StatusBar,
+    SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
@@ -291,14 +292,95 @@ And in `list.html` we will add the goToAdd call in our FAB:
 ```
 ## Ionic Native Integration
 [Ionic Native] is a wrapper for Cordova/PhoneGap plugins, it helps us to add native functionality in our app and it is really easy. To try a couple of examples, we will add a Social Sharing in order to share our items in other apps, and the Camera to take pictures or pick images from our phone data.
-## Social Share
+### Social Share
 [Ionic Social Sharing] 
-## Camera
-[Ionic Camera Plugin]
+### Camera
+Now we will add the [Ionic Camera Plugin] and use it in our **CreateItemPage**. First of all we will install it running the commands:
+```bash
+$ ionic cordova plugin add cordova-plugin-camera
+$ npm install --save @ionic-native/camera
+```
+The second step is to add it to our AppModule:
+```typescript
+...
+import { Camera } from '@ionic-native/camera';
+@NgModule({
+  declarations: [
+    MyApp,
+  ],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(MyApp),
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    MyApp,
+  ],
+  providers: [
+    StatusBar,
+    SplashScreen,
+    SocialSharing,
+    Camera,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}
+  ]
+})
+export class AppModule {}
+```
+Then we add it to the component where we want to use it and the function that will call the Camera plugin. We also add the **ToasterController** (other Ionic component) in order to give feedback to the user is something goes wrong.
+```typescript
+...
+import { Camera } from '@ionic-native/camera';
+...
+export class CreateItemPage {
+  constructor(
+    ...
+    public camera: Camera,
+    private toastCtrl: ToastController,
+    ...) {}
+
+  getPicture(cameraSource: boolean) {
+    if (Camera['installed']()) {
+      this.camera.getPicture({
+        //if cameraSource is true get the image from camera, else get it from gallery
+        sourceType:cameraSource ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.PHOTOLIBRARY,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        quality: 100,
+        allowEdit: true,
+        targetWidth: 500,
+        targetHeight: 500,
+        encodingType: this.camera.EncodingType.JPEG,      
+        correctOrientation: true
+      }).then((data) => {
+        this.item.image = 'data:image/jpg;base64,' + data;
+      }, (err) => {
+        this.toastCtrl.create({
+          message: 'Unable to take the picture',
+          duration: 3000,
+          position: 'middle'
+        }).present();
+      })
+    }
+  }
+}
+```
+Here we explain just the Camera needed functions implementation, but in `create-item.html`, `create-item.ts` and `create-item.scss` we also added some styles improvements, an action sheet to choose between camera and gallery, a form with the title and description, and a provider which will be the responsable to add the item created to the list.
 ## Storage
 [Ionic Storage]
 ## Theming
-[Ionic Theming]
+Now it's time to theme our app, [Ionic Theming] doc have all that we need to know to apply our custom styles to our app. In order to give an example we will override some of the ionic variables.
+In `variables.scss` we will change the colors variable and override some of the toolbar variables too:
+```css
+$colors: (
+  primary:    #de411b,
+  secondary:  #48535b,
+  danger:     #f53d3d,
+  light:      #f4f4f4,
+  dark:       #222
+);
+
+$toolbar-background: map-get($colors, primary);
+$toolbar-border-color: map-get($colors, secondary);
+```
 ## Authors
 * [Octavio Garbarino](https://github.com/octaviog) ([@octaviogarbet](https://twitter.com/octaviogarbet))
 * [Fernando Olmos](https://github.com/ferolmos) ([@OLMOStnet](https://twitter.com/OLMOStnet))

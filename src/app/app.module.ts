@@ -8,7 +8,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ItemsProvider } from '../providers/items/items';
 import { Camera } from '@ionic-native/camera';
-import { SocialSharing} from '@ionic-native/social-sharing';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 import { IonicStorageModule } from '@ionic/storage';
 

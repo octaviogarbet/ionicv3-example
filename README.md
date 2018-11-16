@@ -293,7 +293,7 @@ And in `list.html` we will add the goToAdd call in our FAB:
 ## Ionic Native Integration
 [Ionic Native] is a wrapper for Cordova/PhoneGap plugins, it helps us to add native functionality in our app and it is really easy. To try a couple of examples, we will add a Social Sharing in order to share our items in other apps, and the Camera to take pictures or pick images from our phone data.
 ### Social Share
-[Ionic Social Sharing] 
+[Ionic Social Sharing]
 ### Camera
 Now we will add the [Ionic Camera Plugin] and use it in our **CreateItemPage**. First of all we will install it running the commands:
 ```bash
@@ -365,7 +365,77 @@ export class CreateItemPage {
 ```
 Here we explain just the Camera needed functions implementation, but in `create-item.html`, `create-item.ts` and `create-item.scss` we also added some styles improvements, an action sheet to choose between camera and gallery, a form with the title and description, and a provider which will be the responsable to add the item created to the list.
 ## Storage
+
+Efficient key/value pair string or JSON objects, offering fall back to several techs, it prioritizes order depending on the platform.
+
 [Ionic Storage]
+
+Setting up the provider, you can specify the storage engines that you prefer.
+Add a few just to support different platforms (PWA, mobile app, etc).
+It uses localStorage in browsers with no IndexedDB or WebSQL support (more info about [localForage]).
+
+Ionic Storage comes as part to Ionic stuff, but if you want to use SQLite, need to be installed
+```
+ionic cordova plugin add cordova-sqlite-storage
+```
+
+```
+...
+import { IonicStorageModule } from '@ionic/storage';
+
+@NgModule({
+  declarations: [
+    MyApp,
+  ],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot({
+      name: '__mydb',
+         driverOrder: ['indexeddb', 'sqlite', 'websql']
+    })
+  ]
+  ...
+```
+
+Getting data
+```
+import { Storage } from '@ionic/storage';
+
+@Injectable()
+export class ItemsProvider {
+  ...
+
+  constructor(private storage: Storage) {
+    ...
+  }
+
+  ...
+```
+
+Get all the saved keys in the storage
+```
+getKeys(): Promise<string[]> {
+  return this.storage.keys();
+}
+
+```
+Get specific value by key
+```
+getItem(key: string): Promise<Profile> {
+  return this.storage.get(key);
+}
+```
+
+Saving
+```
+private items: Profile[];
+...
+
+this.storage.set('list', this.items);
+```
+
+
 ## Theming
 Now it's time to theme our app, [Ionic Theming] doc have all that we need to know to apply our custom styles to our app. In order to give an example we will override some of the ionic variables.
 In `variables.scss` we will change the colors variable and override some of the toolbar variables too:
@@ -414,3 +484,4 @@ $toolbar-border-color: map-get($colors, secondary);
 [Ionic Camera Plugin]: https://ionicframework.com/docs/native/camera/
 [Ionic Storage]: https://ionicframework.com/docs/storage/
 [Ionic Theming]: https://ionicframework.com/docs/theming/
+[localForage]: https://github.com/localForage/localForage#configuration

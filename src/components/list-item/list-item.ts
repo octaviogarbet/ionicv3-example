@@ -4,20 +4,11 @@ import { Profile } from '../../interfaces/profile.interface';
 import { ItemsProvider } from '../../providers/items/items';
 import { ToastController } from 'ionic-angular';
 
-/**
- * Generated class for the ListItemComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'list-item',
   templateUrl: 'list-item.html'
 })
-export class ListItemComponent {// implements OnChanges, OnInit
-
-
-// @Input() profileIdentifier: string;
+export class ListItemComponent {
   @Input() profile: Profile;
 
   constructor(
@@ -25,22 +16,6 @@ export class ListItemComponent {// implements OnChanges, OnInit
     private toastCtrl: ToastController,
     private itemsProvider: ItemsProvider) {       
   }
-
-/*ngOnInit() {
-    this.itemsProvider.getItem(this.profileIdentifier).then(value => this.profile = value);
-    console.log(this.profileIdentifier);
-}
-
-ngOnChanges(changes: SimpleChanges): void {
-
-    console.log(changes);
-    if (changes.profileIdentifier && changes.profileIdentifier.currentValue) {
-        this.itemsProvider.getItem(changes.profileIdentifier.currentValue).then(value => {
-            this.profile = value
-            console.log(JSON.stringify(this.profile));
-        });
-    }
-}*/
 
   shareIt() {
     if (this.profile.image) {

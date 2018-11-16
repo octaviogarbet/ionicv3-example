@@ -36,12 +36,14 @@ $app-direction: ltr;
 $colors: (
   // primary:    #488aff,
   primary:    #de411b,
-  secondary:  #32db64,
+  secondary:  #48535b,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222
 );
 
+$toolbar-background: map-get($colors, primary);
+$toolbar-border-color: map-get($colors, secondary);
 
 // App iOS Variables
 // --------------------------------------------------

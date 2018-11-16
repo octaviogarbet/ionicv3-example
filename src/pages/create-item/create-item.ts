@@ -27,7 +27,7 @@ export class CreateItemPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private formBuilder: FormBuilder,
-    private camera: Camera,
+    public camera: Camera,
     private toastCtrl: ToastController,
     private itemsService: ItemsProvider,
     private actionsheetCtrl: ActionSheetController)
@@ -52,8 +52,8 @@ export class CreateItemPage {
         destinationType: this.camera.DestinationType.DATA_URL,
         quality: 100,
         allowEdit: true,
-        targetWidth: 250,
-        targetHeight: 250,
+        targetWidth: 500,
+        targetHeight: 500,
         encodingType: this.camera.EncodingType.JPEG,      
         correctOrientation: true
       }).then((data) => {

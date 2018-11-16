@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Profile } from '../../interfaces/profile.interface';
 import { ItemsProvider } from '../../providers/items/items';
+import { ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the ListItemComponent component.
@@ -21,6 +22,7 @@ export class ListItemComponent {// implements OnChanges, OnInit
 
   constructor(
     private socialSharing: SocialSharing,
+    private toastCtrl: ToastController,
     private itemsProvider: ItemsProvider) {       
   }
 
@@ -41,20 +43,27 @@ ngOnChanges(changes: SimpleChanges): void {
 }*/
 
   shareIt() {
-    const param = {
-      message: this.profile.description, // not supported on some apps (Facebook, Instagram)
-      subject: 'the subject', // fi. for email
-      files: [this.profile.image], // an array of filenames either locally or remotely
-      url: undefined,
-      chooserTitle: 'Pick an app', // Android only, you can override the default share sheet title,
-      // appPackageName: 'com.apple.social.facebook' // Android only, you can provide id of the App you want to share with
-    };
-    this.socialSharing.shareWithOptions(param).then(() => {
-      console.log('Share completed');
-    }).catch(() => {
-      console.log('Share broken');
-    });
-
+    if (this.profile.image) {
+      const param = {
+        message: this.profile.description, // not supported on some apps (Facebook, Instagram)
+        subject: 'the subject', // fi. for email
+        files: [this.profile.image], // an array of filenames either locally or remotely
+        url: undefined,
+        chooserTitle: 'Pick an app', // Android only, you can override the default share sheet title,
+        // appPackageName: 'com.apple.social.facebook' // Android only, you can provide id of the App you want to share with
+      };
+      this.socialSharing.shareWithOptions(param).then(() => {
+        console.log('Share completed');
+      }).catch(() => {
+        console.log('Share broken');
+      });
+    } else {
+      this.toastCtrl.create({
+        message: `This card don't have image to share`,
+        duration: 3000,
+        position: 'middle'
+      }).present();
+    }
   }
 
   onSuccess = (result) => {

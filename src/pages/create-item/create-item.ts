@@ -48,7 +48,6 @@ export class CreateItemPage {
       this.camera.getPicture({
         //if cameraSource is true get the image from camera, else get it from gallery
         sourceType:cameraSource ? this.camera.PictureSourceType.CAMERA : this.camera.PictureSourceType.PHOTOLIBRARY,
-        //destinationType: cameraSource ? this.camera.DestinationType.DATA_URL: this.camera.DestinationType.FILE_URI,
         destinationType: this.camera.DestinationType.DATA_URL,
         quality: 100,
         allowEdit: true,

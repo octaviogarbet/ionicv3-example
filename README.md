@@ -294,6 +294,87 @@ And in `list.html` we will add the goToAdd call in our FAB:
 [Ionic Native] is a wrapper for Cordova/PhoneGap plugins, it helps us to add native functionality in our app and it is really easy. To try a couple of examples, we will add a Social Sharing in order to share our items in other apps, and the Camera to take pictures or pick images from our phone data.
 ### Social Share
 [Ionic Social Sharing]
+
+Next, let's add the chance to share the content of the list item to any of the social app installed on you mobile device.  You can either specify which app your app wants to send data ot just configure to open the share window so the user can select any app.
+
+The social sharing plugin, will do teh job for us.
+
+```
+ionic cordova plugin add cordova-plugin-x-socialsharing
+
+npm install --save @ionic-native/social-sharing
+```
+
+Add it to the app Module
+```typescript
+@NgModule({
+  declarations: [
+    MyApp,
+  ],
+  imports: [
+    ...
+  ],
+  bootstrap: [IonicApp],
+  entryComponents: [
+    MyApp,
+  ],
+  providers: [
+    StatusBar,
+    SplashScreen,
+    SocialSharing
+  ]
+})
+...
+
+```
+Add it to the ListItemComponent and trigger it when user hit share
+```typescript
+...
+import { SocialSharing } from '@ionic-native/social-sharing';
+...
+
+@Component({
+  selector: 'list-item',
+  templateUrl: 'list-item.html'
+})
+export class ListItemComponent {
+  @Input() profile: Profile;
+
+  constructor(
+    private socialSharing: SocialSharing,
+    private toastCtrl: ToastController,
+    private itemsProvider: ItemsProvider) {       
+  }
+
+  shareIt() {
+    if (this.profile.image) {
+      const param = {
+        message: this.profile.description, // not supported on some apps (Facebook, Instagram)
+        subject: 'the subject', // fi. for email
+        files: [this.profile.image], // an array of filenames either locally or remotely
+        url: undefined,
+        chooserTitle: 'Pick an app', // Android only, you can override the default share sheet title,
+        // appPackageName: 'com.apple.social.facebook' // Android only, you can provide id of the App you want to share with
+      };
+      this.socialSharing.shareWithOptions(param).then(() => {
+        console.log('Share completed');
+      }).catch(() => {
+        console.log('Share broken');
+      });
+    } else {
+      this.toastCtrl.create({
+        message: `This card don't have image to share`,
+        duration: 3000,
+        position: 'middle'
+      }).present();
+    }
+  }
+  ...
+
+```
+
+There some limitations about the content that you can set depending on the underline system (Android support some features that cannot being apply on IOS), you can check those in the plugin's [repo]
+
 ### Camera
 Now we will add the [Ionic Camera Plugin] and use it in our **CreateItemPage**. First of all we will install it running the commands:
 ```bash
@@ -375,11 +456,11 @@ Add a few just to support different platforms (PWA, mobile app, etc).
 It uses localStorage in browsers with no IndexedDB or WebSQL support (more info about [localForage]).
 
 Ionic Storage comes as part to Ionic stuff, but if you want to use SQLite, need to be installed
-```
+```typescript
 ionic cordova plugin add cordova-sqlite-storage
 ```
 
-```
+```typescript
 ...
 import { IonicStorageModule } from '@ionic/storage';
 
@@ -399,7 +480,7 @@ import { IonicStorageModule } from '@ionic/storage';
 ```
 
 Getting data
-```
+``` typescript
 import { Storage } from '@ionic/storage';
 
 @Injectable()
@@ -411,17 +492,15 @@ export class ItemsProvider {
   }
 
   ...
-```
 
-Get all the saved keys in the storage
-```
+// Get all the saved keys in the storage
+
 getKeys(): Promise<string[]> {
   return this.storage.keys();
 }
 
-```
-Get specific value by key
-```
+// Get specific value by key
+
 getItem(key: string): Promise<Profile> {
   return this.storage.get(key);
 }
@@ -485,3 +564,4 @@ $toolbar-border-color: map-get($colors, secondary);
 [Ionic Storage]: https://ionicframework.com/docs/storage/
 [Ionic Theming]: https://ionicframework.com/docs/theming/
 [localForage]: https://github.com/localForage/localForage#configuration
+[repo]: https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin

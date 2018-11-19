@@ -42,6 +42,7 @@ $ ionic start DevWeek sidemenu
 Now, to check that it works, we run:
 
 ```bash
+$ cd DevWeek
 $ ionic serve
 ```
 

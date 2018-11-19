@@ -47,7 +47,7 @@ $ ionic serve
 ```
 
 ## Pages
-In order to develop our app, we will add a new page, and transform the pages created by the template from a simple angular component, to an Ionic page. We will do that because ionic page uses lazy loading to laod the module which improves our app performance.
+In order to develop our app, we will add a new page, and transform the pages created by the template from a simple angular component, to an Ionic page. We will do the change because ionic page uses lazy loading to laod the module which improves our app performance.
 
 ### New page
 Now, to create a new page we will run the cli command:
@@ -70,7 +70,7 @@ Now that we have a generated page as an example, we will:
  - Add the @IonicPage() decorator to the ones generated at the "start".
  - Create the missing *.module.ts files for our pages.
  - Remove the imports from app.module.ts
- - Change the navigation calls in order to use lazy loading, that is removing the import of the components and just changing the ComponentName of the params of the navigation and leave it just as a string.
+ - Change the navigation calls in order to use lazy loading, that is made by removing the import of the components and just changing the **ComponentName** of the navigation's params and leave it just as a string.
  As an example, `list.ts` will be:
 ```typescript
 import { Component } from '@angular/core';

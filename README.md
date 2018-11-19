@@ -24,7 +24,7 @@ ionicv3-example is an Ionic 3 app created to use as a Demo for the Dev to Mobile
 We will develop a simple app that will have:
  - A form page to create simple items, with a title, a description and a picture (from our gallery or camera)
  - A list page which will display the created items as cards. We will add the ability to share its pictures through other apps.
- - And will store the created items in order to have them abailable every time we open the app.
+ - And will store the created items in order to have them available every time we open the app.
 
 ## Setup
 Nodejs should be installed in your dev environment. To install Ionic and Cordova run:
@@ -366,7 +366,7 @@ export class CreateItemPage {
 Here, we only explained how to make the Camera work in our app, but in `create-item.html`, `create-item.ts` and `create-item.scss` we also added: some style improvements, an action sheet to choose between camera and gallery, a form with the title and description, and a provider which will be the responsible to add the item created to the list.
 ## Storage
 
-Efficient key/value pair string or JSON objects, offering fall back to several techs, prioritizes order depending on the platform.
+Efficient key/value pair string or JSON objects, offering fall back to several techs, prioritized order depending on the platform.
 
 [Ionic Storage]
 

@@ -20,41 +20,40 @@ Ionic example for dev week
 * [Authors]
 
 ## Overview
-ionicv3-example is an Ionic 3 app created to use as a Demo for the Dev to Mobile developer talk at DevWeek. Here we will see several steps done to build this app.
+ionicv3-example is an Ionic 3 app created to use as a Demo for the Dev to Mobile developer talk at DevWeek. Here we will see several steps that were done to build this app.
 We will develop a simple app that will have:
  - A form page to create simple items, with a title, a description and a picture (from our gallery or camera)
- - A list page which will display the created items as cards and we will add the capability to share this pictures.
- - And will storage the created items in order to have them every time we open the app.
+ - A list page which will display the created items as cards. We will add the ability to share its pictures through other apps.
+ - And will store the created items in order to have them abailable every time we open the app.
 
 ## Setup
-Nodejs is required to be installed in your dev environment
-To install Ionic and Cordova run:
+Nodejs should be installed in your dev environment. To install Ionic and Cordova run:
 
 ```bash
 $ npm install -g ionic cordova
 ```
 
-Then we chose the side menu template, so now that we have ionic cli installed you just have to run:
+Then we chose the side menu template, so now that we have ionic cli installed, you just have to run:
 
 ```bash
 $ ionic start DevWeek sidemenu
 ```
 
-Now to check that it works, we run:
+Now, to check that it works, we run:
 
 ```bash
 $ ionic serve
 ```
 
 ## Pages
-In order to develop uor app, we will add a new page, and transform the pages created by the template from a simple angular component, to a ionic page. We will do that becose ionic page use lazy module and improves our app performance.
+In order to develop our app, we will add a new page, and transform the pages created by the template from a simple angular component, to an Ionic page. We will do that because ionic page uses lazy loading to laod the module which improves our app performance.
 
 ### New page
-Now to create a new page we will run the cli command:
+Now, to create a new page we will run the cli command:
 ```bash
 $ ionic g page CreateItem
 ```
-That will create under pages folder a new folder `create-item` and four files in it `create-item.html`, `create-item.ts`, `create-item.scss` and `create-item.module.ts`. And we will edit `create-item.html` to add the menu button in the header.
+That will create under **pages** folder a new folder `create-item` and four files in it: `create-item.html`, `create-item.ts`, `create-item.scss` and `create-item.module.ts`. And we will edit `create-item.html` to add the menu button in the header.
 ```xml
 <ion-header>
   <ion-navbar>
@@ -66,12 +65,12 @@ That will create under pages folder a new folder `create-item` and four files in
 </ion-header>
 ```
 ### Component to page
-Now that we have a generated page as example, we will:
- - Add the @IonicPage() decorator to the ones generated at the start.
+Now that we have a generated page as an example, we will:
+ - Add the @IonicPage() decorator to the ones generated at the "start".
  - Create the missing *.module.ts files for our pages.
  - Remove the imports from app.module.ts
  - Change the navigation calls in order to use lazy loading, that is removing the import of the components and just changing the ComponentName of the params of the navigation and leave it just as a string.
- As an example `list.ts` will have:
+ As an example, `list.ts` will be:
 ```typescript
 import { Component } from '@angular/core';
 import { NavController, NavParams, IonicPage } from 'ionic-angular';
@@ -149,9 +148,9 @@ export class MyApp {
 ```
 
 ## Adding new components
-Now, we will add a new component in order to have the items logic and template of the list in a reusable separated component and not in list page.
+Now, we will add a new component in order to have the item's logic and template of the list in a reusable separated component and not in the list page.
 
-First of all we will generate the component with the ionic cli
+First of all, we will generate the component with the ionic cli
 
 ```bash
 $ ionic g component ListItem
@@ -171,7 +170,7 @@ import { IonicModule } from 'ionic-angular';
 })
 export class ComponentsModule {}
 ```
-Then we will add an import to our component that we will use later here and is the way that we will use to pass the data that we want to show from the list page, so our list-item.component.ts will look like:
+After that, we will add an input to our component, that we will use later, in order to pass the data that we want to show from the list page. Our list-item.component.ts will look like:
 
 ```typescript
 @Component({
@@ -190,7 +189,7 @@ export class ListItemComponent {
   removeIt() {}
 }
 ```
-P.S. We will add shareIt and removeIt features later, and Profile is an interface we created:
+P.S. We will add shareIt and removeIt features later. Profile is an interface we created:
 
 ```typescript
 export interface Profile {
@@ -200,7 +199,7 @@ export interface Profile {
   image: string
 }
 ```
-After that we will import the generated `ComponentsModule` in the `ListModule`, so we can use the component that we have just created in our list page.
+After that, we will import the generated `ComponentsModule` in the `ListModule`, so we can use the component that we have just created in our list page.
 
 ```typescript
 import { NgModule } from '@angular/core';
@@ -219,7 +218,7 @@ import { ComponentsModule } from '../../components/components.module';
 })
 export class ListPageModule {}
 ```
-We also will use it component in **ListPage** so we will call it in our `list.html` and remove the all autogenerated content code (ion-header doesn't change), so the ion-content will look like:
+We also will use this component in **ListPage**, so we will call it in our `list.html` and remove the all autogenerated content code (ion-header doesn't change), so the ion-content will look like:
 ```xml
 <ion-content>
   <list-item *ngFor="let item of items" [profile]="item"></list-item>
@@ -233,12 +232,12 @@ export class ListPage {
 }
 ```
 ## Adding UI Components
-Here is when we start to add some magic (appart from the side menu and the pages). Ionic has many [UI Components] that help us tu build the interface of our app. For example it has tabs, action sheets, modals, popups, toolbars and more. The documentation is really well and easy to add the components in our app. The best part is that each component have the look and feel that it should have according to the OS of the device that the app is running, so you don't have to implement aditional code to add diferent behaviours to Ionic components.
+Here is when we start to make some magic (appart from the side menu and the pages). Ionic has many [UI Components] that help us build the interface for our app. For example, it has tabs, action sheets, modals, popups, toolbars and more. The documentation is really good and the components are easy to add  in our app. The best part is that each component has the look and feel that it should have according to the OS of the device that the app is running, so you don't have to implement additional code to add different behaviours to the Ionic components.
 
-For example we will add a Fixed Action Button to our list page, that will later navigate to our creat-item page, and a card in our ListItem component to display our items in a card.
+For example, we will add a Fixed Action Button to our list page, that will later navigate to our creat-item page; and a card in our ListItem component to display each item in a card.
 
 ### FABs
-If you see at [FABs Component] doc, it has examples of diferent FAB that we can add to our view. It also use some [ionicons] that are also part of ionic, and have different look in iOS and Android. We will add one at the bottom right of our list page, so the `list.html` ion-content will look like:
+If you see at [FABs Component] doc, it has examples of different FABs that we can add to our view. It also uses some [ionicons] that are part of ionic, and have a different look in iOS and Android. We will add one at the bottom right of our list page, so the `list.html` ion-content will look like:
 ```xml
 <ion-content>
 
@@ -251,7 +250,7 @@ If you see at [FABs Component] doc, it has examples of diferent FAB that we can 
 ```
 
 ### Cards
-Now we take a look at [Card Component] doc, and after looking after cards examples we selected the Images In Cards example one to be added in our ListItem component. So we will add the card code to our `list-item.html` using the profile variable to show the info.
+Now we take a look at the [Card Component] doc, and after looking at card examples we selected the **Images In Cards** example to be added in our ListItem component. We will add the card code to our `list-item.html` using the profile variable to show the info.
 ```xml
 <ion-card>
   <img src="{{profile.image}}" />
@@ -271,10 +270,10 @@ Now we take a look at [Card Component] doc, and after looking after cards exampl
 ```
 
 ## Navigation
-[Ionic Navigation] is what Ionic have to perform the navigation in our app, it has a **NavController** that can be imported in our components (including pages) which has some functions to handle the navigation. In our sidemenu project, we have the **ion-nav** working in our `app.html`, so will only use the **NavController** to make use of it.  Navigation in ionic works as a Stack, and we have 3 main basic usages.
- - push('PageName') -> to navigate to `PageName` page adding it to the top of the stack.
+[Ionic Navigation] is what Ionic has to perform the navigation in our app. It has a **NavController** that can be imported into our components (including pages), which has some functions to handle the navigation. In our sidemenu project, we have the **ion-nav** working in our `app.html`, so will only use the **NavController** to make use of it.  Navigation in ionic works as a stack, and we have 3 main basic usages for it.
+ - push('PageName') -> to navigate to `PageName` page, adding it to the top of the stack.
  - pop() -> to navigate to the previous page and remove the top page from the stack.
- - setRoot('PageName') -> to navigate to `PageName` page removing all pages from the stack and adding it as the only one of the stack.
+ - setRoot('PageName') -> to navigate to `PageName` page, removing all pages from the stack and adding it as the only one in the stack.
 Now we will add the navigation from the list page to the create-item. In `list.ts` we will add:
 ```typescript
 export class ListPage {
@@ -291,11 +290,11 @@ And in `list.html` we will add the goToAdd call in our FAB:
   </ion-fab>
 ```
 ## Ionic Native Integration
-[Ionic Native] is a wrapper for Cordova/PhoneGap plugins, it helps us to add native functionality in our app and it is really easy. To try a couple of examples, we will add a Social Sharing in order to share our items in other apps, and the Camera to take pictures or pick images from our phone data.
+[Ionic Native] is a wrapper for Cordova/PhoneGap plugins. It helps us to add native functionality to our app, and it is really easy. To try a couple of examples, we will add a Social Sharing in order to share our items through other apps, and the Camera to take pictures or pick images from our phone data.
 ### Social Share
 [Ionic Social Sharing]
 ### Camera
-Now we will add the [Ionic Camera Plugin] and use it in our **CreateItemPage**. First of all we will install it running the commands:
+Now we will add the [Ionic Camera Plugin] and use it in our **CreateItemPage**. First of all, we will install it running the commands:
 ```bash
 $ ionic cordova plugin add cordova-plugin-camera
 $ npm install --save @ionic-native/camera
@@ -326,7 +325,7 @@ import { Camera } from '@ionic-native/camera';
 })
 export class AppModule {}
 ```
-Then we add it to the component where we want to use it and the function that will call the Camera plugin. We also add the **ToasterController** (other Ionic component) in order to give feedback to the user is something goes wrong.
+Then we add it to the component where we want to use it, as well as the function that will call the Camera plugin. We also add the **ToasterController** (other Ionic component) in order to give feedback to the user if something goes wrong.
 ```typescript
 ...
 import { Camera } from '@ionic-native/camera';
@@ -363,18 +362,18 @@ export class CreateItemPage {
   }
 }
 ```
-Here we explain just the Camera needed functions implementation, but in `create-item.html`, `create-item.ts` and `create-item.scss` we also added some styles improvements, an action sheet to choose between camera and gallery, a form with the title and description, and a provider which will be the responsable to add the item created to the list.
+Here, we only explained how to make the Camera work in our app, but in `create-item.html`, `create-item.ts` and `create-item.scss` we also added: some style improvements, an action sheet to choose between camera and gallery, a form with the title and description, and a provider which will be the responsible to add the item created to the list.
 ## Storage
 
-Efficient key/value pair string or JSON objects, offering fall back to several techs, it prioritizes order depending on the platform.
+Efficient key/value pair string or JSON objects, offering fall back to several techs, prioritizes order depending on the platform.
 
 [Ionic Storage]
 
-Setting up the provider, you can specify the storage engines that you prefer.
+As you set up the provider, you can specify the storage engines that you prefer.
 Add a few just to support different platforms (PWA, mobile app, etc).
 It uses localStorage in browsers with no IndexedDB or WebSQL support (more info about [localForage]).
 
-Ionic Storage comes as part to Ionic stuff, but if you want to use SQLite, need to be installed
+Ionic Storage comes as part of the Ionic stuff, but if you want to use SQLite, you need to install it.
 ```
 ionic cordova plugin add cordova-sqlite-storage
 ```
@@ -437,7 +436,7 @@ this.storage.set('list', this.items);
 
 
 ## Theming
-Now it's time to theme our app, [Ionic Theming] doc have all that we need to know to apply our custom styles to our app. In order to give an example we will override some of the ionic variables.
+Now it's time to theme our app. The [Ionic Theming] doc has all that we need to know in order to apply our custom styles to our app. In order to give an example, we will override some of the ionic variables.
 In `variables.scss` we will change the colors variable and override some of the toolbar variables too:
 ```css
 $colors: (

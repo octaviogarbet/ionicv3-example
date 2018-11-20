@@ -373,7 +373,7 @@ export class ListItemComponent {
 
 ```
 
-There some limitations about the content that you can set depending on the underline system (Android support some features that cannot being apply on IOS), you can check those in the plugin's [repo]
+There are some limitations about the content that you can set depending on the underline system (Android support some features that cannot being apply on IOS), you can check those in the plugin's [repo]
 
 ### Camera
 Now we will add the [Ionic Camera Plugin] and use it in our **CreateItemPage**. First of all, we will install it running the commands:
